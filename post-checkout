@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo $1
+echo "building cscope files..."
+/Users/ofujimura/main/.git/hooks/build-cscope >> ~/main/post-checkout.log 2>&1

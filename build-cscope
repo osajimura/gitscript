@@ -1,0 +1,40 @@
+#!/bin/bash
+# Excluding following directories and files for cscope index.
+# 
+# -type d \( -path xxx -o -path yyy ... \) -prune
+# ./experimental
+# ./qa
+# ./panacea
+# ./prism/front_end_development
+# ./.dir
+# *test* directories
+#
+# Pickup only *.c, *.h, *.hh, *.py, *.cpp, *.vmx, *.xml, *.cc, *.json, *.java, *.sh, *.conf, *.ps1, *.proto, *.js, *.go, *.html files.
+# -type f \( -name xxx -o -name yyy ... \) 
+
+GITROOT=/Users/ofujimura/main
+REGEXP='s/^\/Users\/ofujimura\/main\///g'
+
+find $GITROOT -type d \( -path "$GITROOT/.*"  -o -path $GITROOT/experimental  -o -path $GITROOT/qa \
+    -o -path $GITROOT/panacea -o -path $GITROOT/prism/front_end_development -o -name "*test*" \) -prune \
+    -o -type f \( -name "*.[ch]" -o -name "*.hh" -o -name "*.py" -o -name "*.cpp" -o -name "*.vmx" \
+    -o -name "*.xml" -o -name "*.cc" -o -name "*.json" -o -name "*.java" -o -name "*.sh" \
+    -o -name "*.conf" -o -name "*.ps1" -o -name "*.proto" -o -name "*.js" -o -name "*.go" -o -name "*.html" \) \
+    -print | sed -e $REGEXP > $GITROOT/cscope.files
+
+# Pickup no extension python script and other files. Exclusing Makefile, README, LICENSE and CHANGELOG files.
+# -type f -not -name "*.*" -and -not \( -name xxx -o -name yyy ... \)
+# Then, excluding ELF file from cscope.files
+# ... xargs file | gerp -v ELF | awk -F ":" '{print $1}'
+
+find $GITROOT -type d \( -path "$GITROOT/.*"  -o -path $GITROOT/experimental  -o -path $GITROOT/qa \
+    -o -path $GITROOT/panacea -o -path $GITROOT/prism/front_end_development -o -name "*test*" \) -prune \
+    -o -type f -not -name "*.*" -and -not \( -name "*Make*" -o -name "README" -o -name "LICENSE" -o -name "CHANGELOG" \) \
+    -print | xargs file | grep -v ELF | awk -F ":" '{print $1}' | sed -e $REGEXP >> $GITROOT/cscope.files
+
+# Build cscope cross-reference
+# -b Build the cross-reference only.
+# -q Enable fast symbol lookup via an inverted index.
+# -i source list file. Usually cscope.files.
+
+/usr/local/bin/cscope -qkb -i $GITROOT/cscope.files

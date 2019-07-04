@@ -18,7 +18,7 @@ REGEXP='s/^\/Users\/ofujimura\/main\///g'
 find $GITROOT -type d \( -path "$GITROOT/.*"  -o -path $GITROOT/experimental  -o -path $GITROOT/qa \
     -o -path $GITROOT/panacea -o -path $GITROOT/prism/front_end_development -o -name "*test*" \) -prune \
     -o -type f \( -name "*.[ch]" -o -name "*.hh" -o -name "*.py" -o -name "*.cpp" -o -name "*.vmx" \
-    -o -name "*.xml" -o -name "*.cc" -o -name "*.json" -o -name "*.java" -o -name "*.sh" \
+    -o -name "*.xml" -o -name "*.cc" -o -name "*.json" -o -name "*.java" -o -name "*.sh" -o -name "*.lua" \
     -o -name "*.conf" -o -name "*.ps1" -o -name "*.psm1" -o -name "*.proto" -o -name "*.js" -o -name "*.go" -o -name "*.html" \) \
     -print | sed -e $REGEXP > $GITROOT/cscope.files
 

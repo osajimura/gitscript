@@ -1,0 +1,8 @@
+#!/bin/bash
+
+GITROOT=/Users/ofujimura/ws/cvm-linux
+REGEXP='s/^\/Users\/ofujimura\/ws\/cvm-linux\///g'
+
+find $GITROOT -name "*.[cshS]" -print | sed -e $REGEXP > $GITROOT/cscope.files
+
+/usr/local/bin/cscope -qkb -i $GITROOT/cscope.files

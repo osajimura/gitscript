@@ -11,9 +11,12 @@
 #
 # Pickup only *.c, *.h, *.hh, *.py, *.cpp, *.vmx, *.xml, *.cc, *.json, *.java, *.sh, *.conf, *.ps1, *.proto, *.js, *.go, *.html files.
 # -type f \( -name xxx -o -name yyy ... \) 
+#
+# Usage: Change BRANCH value only if you copy this script to a branch like helmes, foundation and lcm-framework.
 
-GITROOT=/Users/ofujimura/main
-REGEXP='s/^\/Users\/ofujimura\/main\///g'
+BRANCH=main
+GITROOT=/Users/ofujimura/ws/$BRANCH
+REGEXP="s/^\/Users\/ofujimura\/ws\/$BRANCH\///g"
 
 find $GITROOT -type d \( -path "$GITROOT/.*"  -o -path $GITROOT/experimental  -o -path $GITROOT/qa \
     -o -path $GITROOT/panacea -o -path $GITROOT/prism/front_end_development -o -name "*test*" \) -prune \

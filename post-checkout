@@ -1,5 +1,7 @@
 #!/bin/bash
 
+BRANCH=main
+
 echo $1
 echo "building cscope files..."
-/Users/ofujimura/main/.git/hooks/build-cscope >> ~/main/post-checkout.log 2>&1
+/Users/ofujimura/ws/$BRANCH/.git/hooks/build-cscope >> ~/ws/$BRANCH/post-checkout.log 2>&1

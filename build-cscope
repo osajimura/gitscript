@@ -40,4 +40,5 @@ find $GITROOT -type d \( -path "$GITROOT/.*"  -o -path $GITROOT/experimental  -o
 # -q Enable fast symbol lookup via an inverted index.
 # -i source list file. Usually cscope.files.
 
-/usr/local/bin/cscope -qkb -i $GITROOT/cscope.files
+/usr/local/bin/cscope -qkb -i $GITROOT/cscope.files &
+/usr/local/bin/ctags -R &
